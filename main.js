@@ -46,18 +46,20 @@ async function sendRequests() {
       console.log(`Request sent to ${ipAddress}. Response: ${response.data}`);
     } catch (error) {
       console.error(`Error sending request to ${ipAddress}: ${error.message}`);
+    } finally {
+      console.log("pong\n");
+      runRequestsRandomInterval();
     }
   }
 }
 
 // Function to run the requests at random time intervals
 function runRequestsRandomInterval() {
-  sendRequests(); // Run the initial set of requests
-
-  setInterval(() => {
-    const randomInterval = getRandomSize(5, 60); // Random interval between 1 and 5 seconds
-    setTimeout(sendRequests, randomInterval);
-  }, 0);
+  const randomInterval = getRandomSize(5, 60);
+  setTimeout(() => {
+    console.log("ping");
+    sendRequests();
+  }, randomInterval);
 }
 
 runRequestsRandomInterval();
